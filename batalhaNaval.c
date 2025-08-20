@@ -1,8 +1,9 @@
 #include <stdio.h>
 
+
 void mostrarMatriz(int matriz[10][10]){
 
-     // CABEÇALHO COM LETRAS
+    // CABEÇALHO COM LETRAS
     printf("    ");
     for (int cabecalho = 0; cabecalho < 10; cabecalho++) {
         printf("  %c ", 'A' + cabecalho);
@@ -11,7 +12,7 @@ void mostrarMatriz(int matriz[10][10]){
 
     // IMPRIME LINHA VERTICAL COM O NÚMERO DA LINHA
     for (int i = 0; i < 10; i++) {
-        printf(" %2d ", i + 1);
+        printf(" %2d ", i + 1); // %2d é para dar espaço entre os números... Só isso
         //IMPRIME O CONTEÚDO DA MATRIZ 
         for (int j = 0; j < 10; j++) {
             printf(" %2d ", matriz[i][j]);
@@ -30,18 +31,47 @@ int main() {
             matriz[linha][coluna] = 0;
         }
     }
-
-
     // COORDENADAS DOS NAVIOS
     int linhaH = 2, colunaH = 4; // Navio horizontal
     int linhaV = 5, colunaV = 7; // Navio vertical
+    int linhaC = 1, colunaC = 1; // Navio diagonal
+    int linhaC2 = 7, colunaC2 = 2; // Segundo navio na diagonal
 
     // VERIFICA OS LIMITES DO TABULEIRO
     if (colunaH + 3 <= 10 && linhaV + 3 <= 10) {
+
         // POSICIONA O NAVIO NA HORIZONTAL
         for (int i = 0; i < 3; i++) {
-            matriz[linhaH][colunaH + i] = 3;
-            navioHorizontal[i] = colunaH + i;
+            if(matriz[linhaC + i][colunaC] == 3){
+                printf("Erro: sobreposição de navios!\n");
+                return 1;
+            }else{
+                matriz[linhaH][colunaH + i] = 3;
+                navioHorizontal[i] = colunaH + i;
+            }
+        }
+
+        //POSICIONA O NAVIO NA DIAGONAL
+        for(int i=0; i < 3; i++){
+            if(matriz[linhaC + i][colunaC] == 3){
+                printf("Erro: sobreposição de navios!\n");
+                return 1;
+            }else{
+                matriz[linhaC][colunaC] = 3;
+                linhaC = linhaC + 1;
+                colunaC = colunaC + 1;
+            }
+        }
+        //POSICIONA SEGUNDO NAVIO NA DIAGONAL
+        for(int i=0; i < 3; i++){
+            if(matriz[linhaC + i][colunaC] == 3){
+                printf("Erro: sobreposição de navios!\n");
+                return 1;
+            }else{
+                matriz[linhaC2][colunaC2] = 3;
+                linhaC2 = linhaC2 + 1;
+                colunaC2 = colunaC2 + 1;
+            }
         }
 
         // POSICIONA O NAVIO NA VERTICAL
@@ -50,9 +80,10 @@ int main() {
             if (matriz[linhaV + i][colunaV] == 3) {
                 printf("Erro: sobreposição de navios!\n");
                 return 1;
+            }else{
+                matriz[linhaV + i][colunaV] = 3;
+                navioVertical[i] = linhaV + i;
             }
-            matriz[linhaV + i][colunaV] = 3;
-            navioVertical[i] = linhaV + i;
         }
     } else {
         printf("Erro: navios fora dos limites do tabuleiro.\n");
