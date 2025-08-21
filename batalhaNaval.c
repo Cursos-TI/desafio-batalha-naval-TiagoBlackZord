@@ -32,13 +32,13 @@ int main() {
         }
     }
     // COORDENADAS DOS NAVIOS
-    int linhaH = 2, colunaH = 4; // Navio horizontal
-    int linhaV = 5, colunaV = 7; // Navio vertical
-    int linhaC = 1, colunaC = 1; // Navio diagonal
-    int linhaC2 = 7, colunaC2 = 2; // Segundo navio na diagonal
+    int linhaH = 1, colunaH = 1; // Navio horizontal
+    int linhaV = 3, colunaV = 2; // Navio vertical
+    int linhaC = 5, colunaC = 5; // Navio diagonal
+    int linhaC2 = 6, colunaC2 = 1; // Segundo navio na diagonal
 
     // VERIFICA OS LIMITES DO TABULEIRO
-    if (colunaH + 3 <= 10 && linhaV + 3 <= 10) {
+    if (linhaH < 10 && colunaH + 3 <= 10 && linhaV + 3 <= 10 && colunaV < 10 && linhaC + 3 <= 10 && colunaC < 10 && linhaC2 + 3 <= 10 && colunaC2 < 10) {
 
         // POSICIONA O NAVIO NA HORIZONTAL
         for (int i = 0; i < 3; i++) {
@@ -86,7 +86,7 @@ int main() {
             }
         }
     } else {
-        printf("Erro: navios fora dos limites do tabuleiro.\n");
+        printf("Erro: navios fora dos limites do tabuleiro.\n\n");
         return 1;
     }
 
