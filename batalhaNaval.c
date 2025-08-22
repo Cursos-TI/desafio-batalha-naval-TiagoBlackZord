@@ -1,6 +1,5 @@
 #include <stdio.h>
 
-
 void mostrarMatriz(int matriz[10][10]){
 
     // CABEÇALHO COM LETRAS
@@ -32,10 +31,10 @@ int main() {
         }
     }
     // COORDENADAS DOS NAVIOS
-    int linhaH = 1, colunaH = 1; // Navio horizontal
-    int linhaV = 3, colunaV = 2; // Navio vertical
-    int linhaC = 5, colunaC = 5; // Navio diagonal
-    int linhaC2 = 6, colunaC2 = 1; // Segundo navio na diagonal
+    int linhaH = 0, colunaH = 0; // Navio horizontal
+    int linhaV = 2, colunaV = 0; // Navio vertical
+    int linhaC = 0, colunaC = 4; // Navio diagonal
+    int linhaC2 = 3, colunaC2 = 4; // Segundo navio na diagonal
 
     // VERIFICA OS LIMITES DO TABULEIRO
     if (linhaH < 10 && colunaH + 3 <= 10 && linhaV + 3 <= 10 && colunaV < 10 && linhaC + 3 <= 10 && colunaC < 10 && linhaC2 + 3 <= 10 && colunaC2 < 10) {
@@ -85,6 +84,33 @@ int main() {
                 navioVertical[i] = linhaV + i;
             }
         }
+
+        // PODER DA CRUZ
+        for(int i=6; i <= 8; i++){   //A CRUZ TEM TAMANHO DE 3X3
+            for(int j=0; j <= 2; j++){
+                if(i == 7 || j == 1){
+                    matriz[i][j] = 5;
+                }
+            }
+        }
+
+        // PODER DO CONE
+        int origemLinha = 6;
+        int origemColuna = 6; // centro do cone
+        int altura = 3;
+
+        for (int i = 0; i < altura; i++) {
+            int linha = origemLinha + i;
+            int inicioColuna = origemColuna - i;
+            int fimColuna = origemColuna + i;
+
+            for (int j = inicioColuna; j <= fimColuna; j++) {
+                if (linha >= 0 && linha < 10 && j >= 0 && j < 10) {
+                    matriz[linha][j] = 5; // valor que representa o cone
+                }
+            }
+        }
+
     } else {
         printf("Erro: navios fora dos limites do tabuleiro.\n\n");
         return 1;
